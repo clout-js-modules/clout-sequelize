@@ -1,0 +1,35 @@
+{
+  "name": "clout-sequelize",
+  "version": "0.0.1",
+  "description": "Clout module to leverage sequelize for models",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clout-js-modules/clout-sequelize.git"
+  },
+  "keywords": [
+    "clout",
+    "clout-js",
+    "clout-js",
+    "module",
+    "redis",
+    "express"
+  ],
+  "author": "Muhammad Dadu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/clout-js-modules/clout-sequelize/issues"
+  },
+  "homepage": "https://github.com/clout-js-modules/clout-sequelize#readme",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "mysql": "^2.10.2",
+    "pg": "^4.5.5",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.23.2",
+    "sqlite3": "^3.1.4"
+  }
+}
