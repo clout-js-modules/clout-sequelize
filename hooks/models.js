@@ -13,13 +13,13 @@ module.exports = {
 		priority: 'MODEL',
 		fn: function (next) {
 			var conf = this.config.sequelize;
-			this.Sequelize = Sequelize;
+			this.Sequelize = sequelize;
 			if (conf.database === '<DATABASE>') {
 				debug('Configuration for clout-sequelize missing')
 				this.logger.warn('Configuration for clout-sequelize missing');
 				return next();
 			}
-			this.sequelize = sequelize = new Sequelize(conf.database, conf.username, conf.password, conf.connection);
+			this.sequelize = new Sequelize(conf.database, conf.username, conf.password, conf.connection);
 			debug('sequelize initialized');
 			next();
 		}
