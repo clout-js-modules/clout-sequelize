@@ -39,10 +39,10 @@ module.exports = {
 			// syncronize sequelize
 			this.logger.info('syncronizing sequelize');
 			sequelize.sync(conf.sync)
-				.then(function () {
+				.then(() => {
 					this.logger.info('models synced');
 					next();
-				}, function (err) {
+				}, (err) => {
 					this.logger.error('sync error:', err);
 					next(err);
 				});
