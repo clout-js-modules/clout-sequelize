@@ -11,40 +11,35 @@ module.exports = {
 		event: 'start',
 		priority: 'MODEL',
 		fn: function (next) {
-			let conf = this.config.sequelize;
+			const conf = this.config.sequelize;
+			const logger = this.logger;
+			let syncOpts = conf.sync
+				? Object.assign({}, conf.sync)
+				: false;
+
 			this.Sequelize = Sequelize;
 
 			if (conf.database === '<DATABASE>') {
-				this.logger.warn('Configuration for clout-sequelize missing');
+				logger.warn('Configuration for clout-sequelize missing');
 				return next();
 			}
 
 			this.sequelize = new Sequelize(conf.database, conf.username, conf.password, conf.connection);
-			this.logger.info('sequelize initialized');
-			next();
-		}
-	},
-	syncModels: {
-		event: 'start',
-		priority: 20,
-		fn: function (next) {
-			let conf = this.config.sequelize;
-			let sequelize = this.sequelize;
+			logger.info('sequelize initialized');
 
-			if (!conf.sync || !sequelize) {
-				this.logger.info('skipping model syncronize');
+			if (!syncOpts) {
 				return next();
 			}
 
-			// syncronize sequelize
-			this.logger.info('syncronizing sequelize');
-			sequelize.sync(conf.sync)
+			this.sequelize.sync(syncOpts)
 				.then(() => {
-					this.logger.info('models synced');
+					logger.info('Sequalize has synced');
 					next();
-				}, (err) => {
-					this.logger.error('sync error:', err);
-					next(err);
+				})
+				.catch((error) => {
+					logger.error('Sequalize failed to sync');
+					logger.error(error);
+					next();
 				});
 		}
 	}
