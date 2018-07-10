@@ -42,20 +42,23 @@ module.exports = {
 Place models within ```/models``` in your application directory. A sequalize instance will be available within the clout-js scope. e.g. ```/models/Cart.js```
 
 ```JavaScript
-const
-    clout = require('clout-js'),
-    Sequelize = clout.Sequelize,
-    sequelize = clout.sequelize;
+const clout = require('clout-js');
+const { Sequelize, sequelize } = clout;
 
 // Refer to the sequelize documentation
-var props = {};
+var props = {
+    classMethods: {
+        // custom hook for adding associations to models
+        associate(models) {
+            models.Cart.belongsTo(Item, { foreignKey: 'itemId' });
+            models.Cart.belongsTo(User, { foreignKey: 'userId' });
+        }
+    }
+};
+
 var Cart = sequelize.define('Cart', {
     quantity: { type: Sequelize.INTEGER, allowNull: false, default: 1 }
 }, props);
-
-// Relationships
-// Cart.belongsTo(Item,        { foreignKey: 'itemId' });
-// Cart.belongsTo(User,        { foreignKey: 'userId' });
 
 // Extend static functions
 Cart.staticFunction = function () {

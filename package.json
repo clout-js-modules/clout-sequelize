@@ -1,6 +1,6 @@
 {
   "name": "clout-sequelize",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Clout module to leverage sequelize for models",
   "main": "index.js",
   "scripts": {
