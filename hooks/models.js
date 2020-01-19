@@ -23,6 +23,7 @@ module.exports = {
 
 			this.sequelize = new Sequelize(conf.database, conf.username, conf.password, conf.connection);
 			logger.info('sequelize initialized');
+			debug(conf, 'sequelize config');
 
 			next();
 		}
